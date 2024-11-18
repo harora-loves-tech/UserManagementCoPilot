@@ -2,72 +2,61 @@
 pipeline {
     agent any
 
- 
+
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the repository
-                git 'checkout'
+                git 'https://github.com/harora-loves-tech/UserManagementCoPilot.git'
             }
         }
 
         stage('Build') {
             steps {
-                // Run Maven build
                 bat 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                // Run Maven tests
                 bat 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                // Package the application
                 bat 'mvn package'
             }
         }
 
         stage('Docker Build') {
             steps {
-                // Build Docker image
-                bat 'docker build -t usermanagementcopilot . -t haroralovestech/usermanagementcopilot'
+                bat "docker build -t docker.io/haroralovestech/user-mgmt-copilot ."
             }
         }
 
         stage('Docker Push') {
             steps {
-                // Push Docker image to registry
-                bat 'docker login -u haroralovestech -p $DOCKER_PASSWORD'
-                bat 'docker push docker.io/haroralovestech/usermanagementcopilot/usermanagementcopilot'
+                bat "docker push docker.io/haroralovestech/user-mgmt-copilot"
             }
         }
-        
-        stage('Deploy') {
+
+        stage('Deploy to Kubernetes') {
             steps {
-                // Deploy the application
-                bat 'kubectl apply -f deployment.yaml'
-                bat 'kubectl apply -f ingress.yaml'
+                bat "kubectl apply -f k8s/deployment.yaml
+                bat "kubectl apply -f k8s/ingress.yaml
             }
         }
     }
 
     post {
         always {
-            // Archive the build artifacts
             archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
         }
         success {
-            // Notify success
-            echo 'Build and tests succeeded!'
+            echo 'Build, test, and deployment succeeded!'
         }
         failure {
-            // Notify failure
-            echo 'Build or tests failed.'
+            echo 'Build, test, or deployment failed.'
         }
     }
 }
