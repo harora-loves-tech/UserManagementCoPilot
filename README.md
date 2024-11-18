@@ -25,9 +25,11 @@ mvn package
 ### Build Docker Image
 docker build -t usermanagementcopilot .
 
+### Docker login
+docker login -u $USERNAME -p $PASSWORD
 
-### Run Docker Container
-docker run -p 8081:8081 usermanagementcopilot
+###Docker push
+docker push usermanagementcopilot
 
 ## Kubernetes
 ### Deploy to Kubernetes
