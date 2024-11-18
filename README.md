@@ -39,4 +39,5 @@ docker run -p 8081:8081 usermanagementcopilot
 ### Apply Kubernetes Configurations
 
 kubectl apply -f deployment.yaml 
+
 kubectl apply -f ingress.yaml
