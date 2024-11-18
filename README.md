@@ -1,9 +1,9 @@
 ## Prerequisites
 
-- Java 11
+- Java 17
 - Maven 3.6+
 - Docker
-- Kubernetes cluster
+- Kubernetes cluster (Docker Desktop)
 
 ## Getting Started
 
