@@ -8,7 +8,8 @@
 ## Getting Started
 
 ### Clone the Repository
-git clone https://github.com/UserManagementCoPilot.git 
+git clone https://github.com/UserManagementCoPilot.git
+
 cd UserManagementCoPilot
 
 ### Build the Application
